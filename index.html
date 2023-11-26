@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="editor.css">
+    <title>Table Generator</title>
+    <style>
+        th, td {
+  border:1px solid black;
+}
+
+input#rowCount, input#colCount {
+    padding: 3px 7px 3px 7px;
+}
+
+.banner{
+    height: 70vh;
+    background-image: url('./Images/banner.jpg');
+    background-size: cover;
+    background-position: top center;
+    color: #fff;
+}
+
+#addColor{
+    margin: -4px 0px 0px 7px;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="code-copied d-flex justify-content-center">
+        <div class="copied position-fixed px-3 py-2 text-white rounded">
+
+        </div>
+    </div>
+
+    <div class="banner container-fluid d-flex justify-content-center align-items-center">
+        <div class="banner-title" style="color: #fff;">
+            <h1>Build Your Own Html Table</h1>
+        </div>
+    </div>
+        
+    </div>
+    <div class="container py-4">
+        <h1 class="fontsize-32">Let's Generate Table In One Click</h1>
+        <div id="table-generator" class="d-flex py-4">
+        <div class="row-box d-flex flex-column pr-5">
+            <label for="rowCount" class="fontsize-18">No. of rows</label>
+            <input type="number" name="rowCount" id="rowCount">
+        </div>
+        <div class="col-box d-flex flex-column">
+            <label for="colCount" class="fontsize-18">No. of cols</label>
+            <input type="number" name="colCount" id="colCount">
+        </div>
+    </div>
+    <div class="btn-box py-2">
+        <button class="btn btn-primary fontsize-18" id="tableGen">Generate Table</button>
+    </div>
+    </div>
+    
+
+    <div class="container py-5 d-flex">
+
+        <div class="table px-3" style="width: 60%;">
+            <table class="px-3">
+    
+            </table>
+        </div>
+        <div class="table-opt px-3" style="width: 40%;">
+            
+        </div>
+    </div>
+
+    <!-- Hidden Inputs -->
+    <input type="hidden" id="htmlInput">
+    <input type="hidden" id="cssInput">
+    <input type="hidden" id="bootInput">
+    <input type="hidden" id="fullInput">
+
+    <div class="container pb-4">
+        <div class="options d-flex">
+            
+        </div>
+    </div>
+
+
+    <!-- Html Editor Here -->
+
+    <div id="editor">
+        <div class="container split">
+            <!-- Text area for Html Code  -->
+            <textarea id="htmlCode"  placeholder="Type HTML code here" spellcheck="false" oninput="update(0)" onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}if(event.keyCode==8){update(1);}"></textarea>
+            <!-- Text area for Css Code  -->
+            <textarea id="cssCode"  placeholder="Type CSS code here" spellcheck="false" oninput="update(0)" onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}if(event.keyCode==8){update(1);}"></textarea>
+            <!-- Text area for Javascript Code  -->
+            <textarea id="javascriptCode" spellcheck="false" placeholder="Type JavaScript code here" oninput="update(0)" onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}if(event.keyCode==8){update(1);}"></textarea>
+        </div>
+        <div class="iframe-container split">
+            <iframe id="viewer"></iframe>
+        </div>
+    </div>
+
+    <script>
+
+        let tableGen = document.querySelector('#tableGen')
+        // Show Copy Buttons When Generate Btn Is Clicked
+        tableGen.addEventListener('click', ()=>{
+            let btnHtml = `<div class="htmlcopy ">
+                <div class="btn btn-primary" onclick="copyHtml()">Copy Html</div>
+            </div>
+            <div class="csscopy mx-3">
+                <div class="btn btn-primary" onclick="copyCss()">Copy Css</div>
+            </div>
+            <div class="bootcopy">
+                <div class="btn btn-primary" onclick="copyBoot()">Copy Bootstrap</div>
+            </div>
+            <div class="fullcopy mx-3">
+                <div class="btn btn-primary" onclick="copyFull()">Copy Full Code</div>
+            </div>`
+            document.querySelector('.options').innerHTML = btnHtml
+        })
+        
+        let staticCss = `
+body{
+margin: 30px
+}
+
+th, td {
+border:1px solid black;
+}`
+
+    </script>
+
+
+<script>
+    // Animation Animejs
+    function animateBlock() {
+        anime({
+            targets: '.copied',
+            translateY: 50
+        });
+    }
+</script>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="./anime.min.js"></script>
+    <script type="module" src="./script.js"></script>
+    <script src="./editor.js"></script>
+    <script src="./copybtns.js"></script>
+</body>
+</html>
