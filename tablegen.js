@@ -7,7 +7,6 @@ const tableGen = () => {
     for (let index1 = 0; index1 < rCount; index1++) {
         rowHtml += `<tr class="row"></tr>`
     }
-    console.log(rowHtml)
 
     // Column Html
     let colHtml = ''
@@ -38,7 +37,6 @@ const tableGen = () => {
         let cols = document.querySelectorAll('.col')
         Array.from(cols).forEach((element,index) => {
             element.addEventListener('click', function(){
-              console.log(index)
               let value = prompt('Enter a value')
               cols[index].innerHTML = value
             })
@@ -49,5 +47,4 @@ const tableGen = () => {
          document.getElementById('htmlInput').value = htmlCode
         
 }
-
 export { tableGen }

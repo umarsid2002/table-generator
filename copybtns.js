@@ -1,4 +1,13 @@
-        //  Copy Html
+function changeHeaderVal(ElemId) {
+    console.log('Change Value')
+    let header = document.querySelector('.header')
+    let headerCols = header.getElementsByClassName('col')
+    let element = document.getElementById(`${ElemId}`)
+    let value = prompt('Enter a value')
+    element.innerHTML = value
+}
+
+//  Copy Html
         function copyHtml() {
             let htmlCode = document.getElementsByClassName('table')[0].innerHTML
             htmlInput.value = htmlCode
@@ -22,7 +31,6 @@
             let header = tbody.firstChild
             const cssObj = window.getComputedStyle(header, null);
             let bgColor = cssObj.getPropertyValue("background-color");
-            console.log(bgColor)
             let cssStyle = `
 
         .header{
@@ -72,7 +80,6 @@
             let header = tbody.firstChild
             const cssObj = window.getComputedStyle(header, null);
             let bgColor = cssObj.getPropertyValue("background-color");
-            console.log(bgColor)
             let cssStyle = `<style>
                 ${staticCss}
 
