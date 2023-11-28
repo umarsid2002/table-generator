@@ -14,6 +14,7 @@ function generateTable() {
 
     // Generate Table 
     tableGen()
+    $('td').tooltip()
 
     //  Add heading in the table
      if(isTable == true){
@@ -21,16 +22,16 @@ function generateTable() {
         let cols = document.querySelectorAll('.col')
         let addHeader = document.querySelector('#Theader');
         let headerTr = document.createElement('tr')
-        headerTr.classList.add('row')
+        headerTr.classList.add('rowTable')
         headerTr.classList.add('header')
     
         // No. of top columns
-        let rows = document.querySelectorAll('.row')
+        let rows = document.querySelectorAll('.rowTable')
         let topCols =  cols.length / rows.length
     
         // Generating header html w.r.t columns
         for (let index = 0; index < topCols; index++) {
-            headerTr.innerHTML += `<th id=${index} class="col px-3" onclick="changeHeaderVal(this.id)">Header</th>`   
+            headerTr.innerHTML += `<th id=${index} class="col px-3" onclick="changeHeaderVal(this.id)" title='Click Here To Change Value'>Header</th>`   
         }
 
         // When add header is clicked
@@ -38,6 +39,7 @@ function generateTable() {
         headerCheck.addEventListener('click', function() {
             if(this.checked){
                 headerAdd()
+                $('th').tooltip()
                 let headerWhite = document.querySelector('#headerWhite')
                 headerWhite.addEventListener('click', function() {
                     if(headerWhite.checked == true){
@@ -54,7 +56,7 @@ function generateTable() {
             if(headerCheck.checked == false){
                 isHeader = false
                 let tbody = document.getElementsByTagName('tbody')[0]
-                tbody.removeChild(tbody.querySelectorAll('.row')[0])
+                tbody.removeChild(tbody.querySelectorAll('.rowTable')[0])
                 let tableOpt = document.querySelector('.table-opt')
                 tableOpt.removeChild(tableOpt.querySelector('.headingColor'))
             }

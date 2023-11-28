@@ -5,20 +5,20 @@ const tableGen = () => {
     // Row Html
     let rowHtml = ''
     for (let index1 = 0; index1 < rCount; index1++) {
-        rowHtml += `<tr class="row"></tr>`
+        rowHtml += `<tr class="rowTable"></tr>`
     }
 
     // Column Html
     let colHtml = ''
     for (let index2 = 0; index2 < cCount; index2++) {
-        colHtml += `<td class="px-3 col">Maria Anders</td>`
+        colHtml += `<td class="px-3 col" title='Click Here To Change Value'>Lorem</td>`
     }
 
     // Add row html in document
     document.getElementsByTagName('table')[0].innerHTML = rowHtml
     
     // Adding collumn html in rows
-    let rows = document.querySelectorAll('.row')
+    let rows = document.querySelectorAll('.rowTable')
     rows.forEach((element,index) => {
     element.innerHTML = colHtml
     });
